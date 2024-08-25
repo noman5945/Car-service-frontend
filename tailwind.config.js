@@ -3,7 +3,14 @@ const flowbite = require("flowbite-react/tailwind");
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", flowbite.content()],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "hero-back": "url('/src/assets/HeroSection-Carwash-cover1.jpg')",
+      },
+      fontFamily: {
+        bebas: ["Bebas", "sans-serif"],
+      },
+    },
   },
   plugins: [flowbite.plugin()],
 };

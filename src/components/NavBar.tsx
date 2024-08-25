@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const NavBar = () => {
   return (
-    <Navbar fluid rounded className=" shadow-md">
+    <Navbar fluid rounded className=" shadow-md ">
       <Navbar.Brand>
         {" "}
         <h1 className=" text-lg font-bold"> Levis Car Services</h1>
@@ -16,14 +16,14 @@ export const NavBar = () => {
       </div>
       <Navbar.Collapse>
         <Link to={"/"}>
-          <Navbar.Link>Home</Navbar.Link>
+          <Navbar.Link className=" lg:text-lg ">Home</Navbar.Link>
         </Link>
         <Link to={"/about"}>
-          <Navbar.Link>About</Navbar.Link>
+          <Navbar.Link className=" lg:text-lg ">About</Navbar.Link>
         </Link>
         <Link to={"/services"}>
           {" "}
-          <Navbar.Link>Services</Navbar.Link>
+          <Navbar.Link className=" lg:text-lg ">Services</Navbar.Link>
         </Link>
       </Navbar.Collapse>
     </Navbar>
