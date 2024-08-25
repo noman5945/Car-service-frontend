@@ -10,7 +10,7 @@ export const NavBar = () => {
       </Navbar.Brand>
       <div className=" flex md:order-2">
         <Link to={"/sign-in"}>
-          <Button>Log-In</Button>
+          <Button>Log In</Button>
         </Link>
         <Navbar.Toggle />
       </div>

@@ -4,15 +4,17 @@ type CustomInputProps = {
   textType: string;
   inputLabel: string;
   onChangeFunc: React.Dispatch<React.SetStateAction<string>>;
+  styles?: string;
 };
 
 export const InputText = ({
   textType,
   inputLabel,
   onChangeFunc,
+  styles,
 }: CustomInputProps) => {
   return (
-    <div className="grid grid-flow-col justify-stretch space-x-1">
+    <div className={styles ? styles : "w-full"}>
       <FloatingLabel
         variant="outlined"
         label={inputLabel ? inputLabel : "Examlpe Label"}
