@@ -1,7 +1,9 @@
 import { Button, Navbar } from "flowbite-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const NavBar = () => {
+  const [usertype, setUserType] = useState("admin");
   return (
     <Navbar fluid rounded className=" shadow-md ">
       <Navbar.Brand>
@@ -25,6 +27,17 @@ export const NavBar = () => {
           {" "}
           <Navbar.Link className=" lg:text-lg ">Services</Navbar.Link>
         </Link>
+        {usertype === "user" ? (
+          <Link to={"/dashboard/user/profile"}>
+            {" "}
+            <Navbar.Link className=" lg:text-lg ">Dashboard</Navbar.Link>
+          </Link>
+        ) : (
+          <Link to={"/dashboard/admin/users"}>
+            {" "}
+            <Navbar.Link className=" lg:text-lg ">Dashboard</Navbar.Link>
+          </Link>
+        )}
       </Navbar.Collapse>
     </Navbar>
   );

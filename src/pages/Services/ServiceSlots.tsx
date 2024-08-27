@@ -1,6 +1,11 @@
 import { Button, Checkbox, Table } from "flowbite-react";
+import { useNavigate } from "react-router-dom";
 
 export const ServiceSlots = () => {
+  const navigator = useNavigate();
+  const handleGoToBookings = () => {
+    navigator("/booking");
+  };
   return (
     <div className=" overflow-x-auto md:w-[700px] ">
       <Table hoverable>
@@ -19,22 +24,6 @@ export const ServiceSlots = () => {
         <Table.Body className=" divide-y">
           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
             <Table.Cell className="p-4">
-              <Checkbox disabled />
-            </Table.Cell>
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              {`2024-06-16`}
-            </Table.Cell>
-            <Table.Cell>08:30</Table.Cell>
-            <Table.Cell>09:30</Table.Cell>
-            <Table.Cell>available</Table.Cell>
-            <Table.Cell>
-              <Button className="font-medium text-white h-[40px] w-[90px]">
-                Book
-              </Button>
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-            <Table.Cell className="p-4">
               <Checkbox />
             </Table.Cell>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
@@ -43,6 +32,25 @@ export const ServiceSlots = () => {
             <Table.Cell>08:30</Table.Cell>
             <Table.Cell>09:30</Table.Cell>
             <Table.Cell>available</Table.Cell>
+            <Table.Cell>
+              <Button
+                className="font-medium text-white h-[40px] w-[90px]"
+                onClick={handleGoToBookings}
+              >
+                Book
+              </Button>
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+            <Table.Cell className="p-4">
+              <Checkbox disabled />
+            </Table.Cell>
+            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+              {`2024-06-16`}
+            </Table.Cell>
+            <Table.Cell>08:30</Table.Cell>
+            <Table.Cell>09:30</Table.Cell>
+            <Table.Cell>booked</Table.Cell>
             <Table.Cell>
               <Button
                 className="font-medium text-white h-[40px] w-[90px]"
