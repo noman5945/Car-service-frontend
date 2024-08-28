@@ -2,13 +2,15 @@ import { Outlet } from "react-router-dom";
 import { NavBar } from "../components/NavBar";
 import { SideBar } from "../components/SideBar";
 import { UserRoutes } from "../routes/UserRoutes";
-import { useState } from "react";
 import { AdminRoutes } from "../routes/AdminRoutes";
+import { useAppSelector } from "../redux/hooks";
+import { selectCurrentUser } from "../redux/features/auth/authSlice";
+import { TUser } from "../types/user.type";
 
 export const Dashboard = () => {
-  const [userType, setUserType] = useState("admin");
+  const user = useAppSelector(selectCurrentUser) as TUser;
   let Routes;
-  if (userType === "user") {
+  if (user.role === "user") {
     Routes = UserRoutes;
   } else {
     Routes = AdminRoutes;

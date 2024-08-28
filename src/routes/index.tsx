@@ -13,6 +13,11 @@ import { UserBookings } from "../pages/User/UserBookings";
 import { UserManagement } from "../pages/Admin/UserManagement";
 import { SlotManagement } from "../pages/Admin/SlotManagement";
 import { ServiceManagement } from "../pages/Admin/ServiceManagement";
+import { ProtectedRoute } from "./ProtectedRoute";
+import { NotPermitted } from "../pages/Error/NotPermitted";
+import { ProtectedAdminRoutes } from "./ProtectedAdminRoutes";
+import { ProtectedUserRoutes } from "./ProtectedUserRoutes";
+import { NotFound } from "../pages/Error/NotFound";
 
 export const routes = createBrowserRouter([
   {
@@ -39,6 +44,10 @@ export const routes = createBrowserRouter([
         path: "/booking",
         element: <Bookings />,
       },
+      {
+        path: "/not-permitted",
+        element: <NotPermitted />,
+      },
     ],
   },
   {
@@ -51,28 +60,56 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "/dashboard/user/profile",
-        element: <Profile />,
+        element: (
+          <ProtectedUserRoutes>
+            <Profile />
+          </ProtectedUserRoutes>
+        ),
       },
       {
         path: "/dashboard/user/bookings",
-        element: <UserBookings />,
+        element: (
+          <ProtectedUserRoutes>
+            <UserBookings />
+          </ProtectedUserRoutes>
+        ),
       },
       {
         path: "/dashboard/admin/users",
-        element: <UserManagement />,
+        element: (
+          <ProtectedAdminRoutes>
+            <UserManagement />
+          </ProtectedAdminRoutes>
+        ),
       },
       {
         path: "/dashboard/admin/slots",
-        element: <SlotManagement />,
+        element: (
+          <ProtectedAdminRoutes>
+            <SlotManagement />
+          </ProtectedAdminRoutes>
+        ),
       },
       {
         path: "/dashboard/admin/services",
-        element: <ServiceManagement />,
+        element: (
+          <ProtectedAdminRoutes>
+            <ServiceManagement />
+          </ProtectedAdminRoutes>
+        ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);

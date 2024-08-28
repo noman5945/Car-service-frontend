@@ -3,18 +3,34 @@ import { InputText } from "../../components/InputText";
 import { Button } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import { HeaderLogo } from "../../components/HeaderLogo";
+import { useLoginMutation } from "../../redux/features/auth/authApi";
+import { useAppDispatch } from "../../redux/hooks";
+import { jwtDecode } from "jwt-decode";
+import { TUser } from "../../types/user.type";
+import { setUser } from "../../redux/features/auth/authSlice";
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+  const [login, { isError }] = useLoginMutation();
+  const dispatch = useAppDispatch();
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const loginData = {
       email,
       password,
     };
     console.log(loginData);
+    const res = await login(loginData).unwrap();
+    const user = (await jwtDecode(res.token)) as TUser;
+    dispatch(setUser({ user: user, token: res.token }));
+    if (res.statusCode === 200) {
+      navigate("/");
+    }
+    if (isError) {
+      alert(isError);
+    }
 
     setEmail("");
     setPassword("");

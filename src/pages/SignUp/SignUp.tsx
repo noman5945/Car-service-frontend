@@ -3,21 +3,42 @@ import { HeaderLogo } from "../../components/HeaderLogo";
 import { InputText } from "../../components/InputText";
 import { CustomTextArea } from "../../components/CustomTextArea";
 import { Button } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserCreateMutation } from "../../redux/features/auth/authApi";
+import toast from "react-hot-toast";
 
 export const SignUp = () => {
   const [name, setName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [email, setEmail] = useState("");
-  const handleSignUp = (e: FormEvent<HTMLFormElement>) => {
+  const [password, setPassword] = useState("");
+  const [confpass, setConfPass] = useState("");
+  const [address, setAddress] = useState("");
+  const navigation = useNavigate();
+  const [userCreate, { isError }] = useUserCreateMutation();
+  const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const signUpData = {
       name,
       phone: phoneNo,
       email,
       role: "user",
+      password,
+      address,
     };
-    console.log(signUpData);
+    if (confpass !== password) {
+      toast.error("Password Mismatch");
+    } else {
+      const res = await userCreate(signUpData).unwrap();
+      console.log(res);
+      if (res.statusCode === 200) {
+        toast.success("User created successfilly");
+        navigation("/sign-in");
+      }
+    }
+    if (isError) {
+      toast.error("Error occured while signing up!");
+    }
   };
   return (
     <div>
@@ -55,19 +76,20 @@ export const SignUp = () => {
               <InputText
                 textType="password"
                 inputLabel="Password"
-                onChangeFunc={setEmail}
+                onChangeFunc={setPassword}
                 styles="w-full"
               />
               <InputText
                 textType="password"
                 inputLabel="Confirm Password"
-                onChangeFunc={setEmail}
+                onChangeFunc={setConfPass}
                 styles="w-full"
               />
               <CustomTextArea
                 title="Address"
                 id="address"
                 placeholder="Your Address"
+                onChangeFunc={setAddress}
               />
             </div>
             <Button type="submit" className="my-2 w-[200px]">
