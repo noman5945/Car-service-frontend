@@ -1,7 +1,18 @@
 import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 
-export const ServiceCard = () => {
+type ServiceCardProps = {
+  name: string;
+  desc: string;
+  price: number;
+  duration: number;
+};
+export const ServiceCard = ({
+  name,
+  desc,
+  price,
+  duration,
+}: ServiceCardProps) => {
   const navigate = useNavigate();
   const handleGoToDetails = () => {
     navigate("/service-details");
@@ -11,17 +22,17 @@ export const ServiceCard = () => {
       <div className=" flex flex-col py-2 w-[80%]">
         <div className=" p-1 ">
           <h1 className=" text-sky-500 font-bold font-bebas text-xl md:text-2xl">
-            Service Name
+            {name}
           </h1>
         </div>
         <div className=" font-light ">
-          <p>description</p>
+          <p>{desc}</p>
         </div>
         <div className=" ">
-          <p className=" font-bold ">Price:</p>
+          <p className=" font-bold ">Price: {price}</p>
         </div>
         <div className=" ">
-          <p className=" font-bold ">Duration:</p>
+          <p className=" font-bold ">Duration: {duration}</p>
         </div>
       </div>
       <div className=" p-3 ">
