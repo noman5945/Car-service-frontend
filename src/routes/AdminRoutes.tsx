@@ -3,6 +3,11 @@ import { ProfileIcon } from "../components/Icon/ProfileIcon";
 
 export const AdminRoutes = [
   {
+    path: "/dashboard/admin/users",
+    pic: <ProfileIcon />,
+    title: "Manage Users",
+  },
+  {
     path: "/dashboard/admin/services",
     pic: <ProfileIcon />,
     title: "Manage Service",
@@ -11,10 +16,5 @@ export const AdminRoutes = [
     path: "/dashboard/admin/slots",
     pic: <BookingIcon />,
     title: "Manage Slots",
-  },
-  {
-    path: "/dashboard/admin/users",
-    pic: <ProfileIcon />,
-    title: "Manage Users",
   },
 ];

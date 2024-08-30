@@ -8,12 +8,14 @@ import { useAppDispatch } from "../../redux/hooks";
 import { jwtDecode } from "jwt-decode";
 import { TUser } from "../../types/user.type";
 import { setUser } from "../../redux/features/auth/authSlice";
+import toast from "react-hot-toast";
+import { CustomLoader } from "../../components/CustomLoader";
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [login, { isError }] = useLoginMutation();
+  const [login, { isError, isLoading }] = useLoginMutation();
   const dispatch = useAppDispatch();
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,7 +28,11 @@ export const SignIn = () => {
     const user = (await jwtDecode(res.token)) as TUser;
     dispatch(setUser({ user: user, token: res.token }));
     if (res.statusCode === 200) {
+      toast.success("Logged in successfully");
       navigate("/");
+    }
+    if (res.statusCode === 404) {
+      toast.error(res.message);
     }
     if (isError) {
       alert(isError);
@@ -62,12 +68,21 @@ export const SignIn = () => {
               onChangeFunc={setPassword}
               styles=" w-[70%]"
             />
-            <Button type="submit" className="my-2 w-[200px]">
-              Log In
-            </Button>
-            <Button onClick={handleGoHomePage} className=" w-[200px]">
-              Home
-            </Button>
+            {isLoading ? (
+              <div className=" flex flex-col items-center">
+                <CustomLoader />
+              </div>
+            ) : (
+              <div>
+                <Button type="submit" className="my-2 w-[200px]">
+                  Log In
+                </Button>
+                <Button onClick={handleGoHomePage} className=" w-[200px]">
+                  Home
+                </Button>
+              </div>
+            )}
+
             <div className=" flex flex-col text-center p-2">
               <p>
                 Dont have account?

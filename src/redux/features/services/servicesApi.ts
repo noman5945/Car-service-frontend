@@ -29,6 +29,7 @@ const servicesAPI = baseAPI.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ["services"],
     }),
     getFilterdServices: builder.query({
       query: (queries) => {
