@@ -18,6 +18,7 @@ import { NotPermitted } from "../pages/Error/NotPermitted";
 import { ProtectedAdminRoutes } from "./ProtectedAdminRoutes";
 import { ProtectedUserRoutes } from "./ProtectedUserRoutes";
 import { NotFound } from "../pages/Error/NotFound";
+import { UpdateService } from "../pages/Admin/UpdateService";
 
 export const routes = createBrowserRouter([
   {
@@ -103,6 +104,14 @@ export const routes = createBrowserRouter([
         element: (
           <ProtectedAdminRoutes>
             <ServiceManagement />
+          </ProtectedAdminRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/admin/service-update",
+        element: (
+          <ProtectedAdminRoutes>
+            <UpdateService />
           </ProtectedAdminRoutes>
         ),
       },

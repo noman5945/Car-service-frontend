@@ -2,13 +2,26 @@ import { Button, Table } from "flowbite-react";
 import { useGetInitalServicesQuery } from "../../redux/features/services/servicesApi";
 import { CustomLoader } from "../../components/CustomLoader";
 import { TService } from "../../types/service.type";
+import { useState } from "react";
+import { NewServiceModal } from "../../components/CustomModals/NewServiceModal";
+import { useAppDispatch } from "../../redux/hooks";
+import { setServiceID } from "../../redux/features/services/serviceSlice";
+import { useNavigate } from "react-router-dom";
 
 export const ServiceManagement = () => {
+  const [openNewServiceModal, setOpenNewServiceModal] = useState(false);
+  const navigator = useNavigate();
+  const dispatch = useAppDispatch();
   const {
     data: services,
     isLoading,
     isError,
   } = useGetInitalServicesQuery({ limit: 10 });
+
+  const handleGoToUpdateServicePage = (id: string) => {
+    dispatch(setServiceID(id));
+    navigator("/dashboard/admin/service-update");
+  };
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -20,7 +33,9 @@ export const ServiceManagement = () => {
       </div>
       <div className=" flex flex-row justify-between w-full p-4">
         <h2 className=" font-bold text-xl">Services Table</h2>
-        <Button>Add New Service</Button>
+        <Button onClick={() => setOpenNewServiceModal(true)}>
+          Add New Service
+        </Button>
       </div>
       <div className="p-2 overflow-x-auto  w-full">
         {isLoading ? (
@@ -57,7 +72,12 @@ export const ServiceManagement = () => {
                       {service.isDeleted ? "Not Active" : "Active"}
                     </Table.Cell>
                     <Table.Cell className=" grid grid-cols-2 w-fit gap-2">
-                      <Button disabled={service.isDeleted} onClick={() => {}}>
+                      <Button
+                        disabled={service.isDeleted}
+                        onClick={() => {
+                          handleGoToUpdateServicePage(service._id);
+                        }}
+                      >
                         Update
                       </Button>
                       <Button
@@ -75,6 +95,10 @@ export const ServiceManagement = () => {
           </Table>
         )}
       </div>
+      <NewServiceModal
+        openModal={openNewServiceModal}
+        onCloseFunc={() => setOpenNewServiceModal(false)}
+      />
     </div>
   );
 };

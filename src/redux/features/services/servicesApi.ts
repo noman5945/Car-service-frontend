@@ -47,7 +47,16 @@ const servicesAPI = baseAPI.injectEndpoints({
         };
       },
     }),
+    getSingleService: builder.query({
+      query: (id) => {
+        return {
+          url: `/api/services/${id}`,
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetInitalServicesQuery } = servicesAPI;
+export const { useGetInitalServicesQuery, useGetSingleServiceQuery } =
+  servicesAPI;

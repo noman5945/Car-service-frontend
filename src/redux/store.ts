@@ -18,13 +18,22 @@ const persistConfig = {
   key: "authCar",
   storage,
 };
+
+const persistServiceIdConfig = {
+  key: "serviceID",
+  storage,
+};
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+const persistServiceIDReducer = persistReducer(
+  persistServiceIdConfig,
+  serviceReducer
+);
 
 export const store = configureStore({
   reducer: {
     [baseAPI.reducerPath]: baseAPI.reducer,
     auth: persistedAuthReducer,
-    service: serviceReducer,
+    service: persistServiceIDReducer,
   },
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares({

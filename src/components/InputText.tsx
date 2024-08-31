@@ -5,6 +5,7 @@ type CustomInputProps = {
   inputLabel: string;
   onChangeFunc: React.Dispatch<React.SetStateAction<string>>;
   styles?: string;
+  value?: string;
 };
 
 export const InputText = ({
@@ -12,6 +13,7 @@ export const InputText = ({
   inputLabel,
   onChangeFunc,
   styles,
+  value,
 }: CustomInputProps) => {
   return (
     <div className={styles ? styles : "w-full"}>
@@ -20,6 +22,7 @@ export const InputText = ({
         label={inputLabel ? inputLabel : "Examlpe Label"}
         onChange={(e) => onChangeFunc(e.target.value)}
         type={textType ? textType : "text"}
+        value={value}
       ></FloatingLabel>
     </div>
   );
