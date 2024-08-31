@@ -21,7 +21,7 @@ const servicesAPI = baseAPI.injectEndpoints({
           if (queries.price) {
             params.append("price", queries.price);
           }
-          if (queries.isDeleted) {
+          if (queries.isDeleted !== undefined) {
             params.append("isDeleted", queries.isDeleted);
           }
         }
@@ -64,6 +64,22 @@ const servicesAPI = baseAPI.injectEndpoints({
         return { url: "/api/services", method: "POST", body: newServiceInfo };
       },
     }),
+    updateService: builder.mutation({
+      query: (updatedData) => {
+        let id;
+        for (let key in updatedData) {
+          if (key === "serviceID") {
+            id = updatedData[key];
+          }
+        }
+        delete updatedData["serviceID"];
+        return {
+          url: `/api/services/${id}`,
+          method: "PUT",
+          body: updatedData,
+        };
+      },
+    }),
     deleteService: builder.mutation({
       query: (id) => {
         return { url: `/api/services/${id}`, method: "DELETE" };
@@ -77,4 +93,5 @@ export const {
   useGetSingleServiceQuery,
   useCreateNewServiceMutation,
   useDeleteServiceMutation,
+  useUpdateServiceMutation,
 } = servicesAPI;

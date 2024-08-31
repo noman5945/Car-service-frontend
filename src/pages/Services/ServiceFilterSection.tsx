@@ -5,8 +5,8 @@ type FilterProps = {
   onFilterButtonClick: (filter: any) => void;
 };
 export const ServiceFilterSection = ({ onFilterButtonClick }: FilterProps) => {
-  const [duration, setDuration] = useState(50);
-  const [price, setPrice] = useState(0);
+  const [duration, setDuration] = useState(100);
+  const [price, setPrice] = useState(1000);
   const [service, setService] = useState("");
   const [sort, setSort] = useState("");
   const handleFilter = () => {
@@ -58,6 +58,7 @@ export const ServiceFilterSection = ({ onFilterButtonClick }: FilterProps) => {
           id="sm-range"
           sizing="md"
           slot="10"
+          value={duration}
           step={10}
           min={10}
           max={100}
@@ -75,8 +76,9 @@ export const ServiceFilterSection = ({ onFilterButtonClick }: FilterProps) => {
           id="sm-range"
           sizing="md"
           slot="10"
+          value={price}
           step={5}
-          min={50}
+          min={0}
           max={1000}
           inputMode="decimal"
           width={500}
