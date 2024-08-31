@@ -1,5 +1,8 @@
 import { Button, Table } from "flowbite-react";
-import { useGetInitalServicesQuery } from "../../redux/features/services/servicesApi";
+import {
+  useDeleteServiceMutation,
+  useGetInitalServicesQuery,
+} from "../../redux/features/services/servicesApi";
 import { CustomLoader } from "../../components/CustomLoader";
 import { TService } from "../../types/service.type";
 import { useState } from "react";
@@ -7,6 +10,7 @@ import { NewServiceModal } from "../../components/CustomModals/NewServiceModal";
 import { useAppDispatch } from "../../redux/hooks";
 import { setServiceID } from "../../redux/features/services/serviceSlice";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const ServiceManagement = () => {
   const [openNewServiceModal, setOpenNewServiceModal] = useState(false);
@@ -16,11 +20,22 @@ export const ServiceManagement = () => {
     data: services,
     isLoading,
     isError,
+    refetch,
   } = useGetInitalServicesQuery({ limit: 10 });
+
+  const [deleteService] = useDeleteServiceMutation();
 
   const handleGoToUpdateServicePage = (id: string) => {
     dispatch(setServiceID(id));
     navigator("/dashboard/admin/service-update");
+  };
+
+  const handleDeleteServiceByID = async (id: string) => {
+    const res = await deleteService(id).unwrap();
+    if (res.statusCode === 200) {
+      toast.success("Service Deactivated");
+    }
+    refetch();
   };
 
   return (
@@ -82,7 +97,9 @@ export const ServiceManagement = () => {
                       </Button>
                       <Button
                         disabled={service.isDeleted}
-                        onClick={() => {}}
+                        onClick={() => {
+                          handleDeleteServiceByID(service._id);
+                        }}
                         className=" bg-red-500 hover:bg-red-600"
                       >
                         Delete

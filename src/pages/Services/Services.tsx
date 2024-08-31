@@ -6,7 +6,11 @@ import { TService } from "../../types/service.type";
 import { ServiceFilterSection } from "./ServiceFilterSection";
 
 export const Services = () => {
-  const [filters, setFilters] = useState({ limit: 10 });
+  const initailQuery = {
+    limit: 10,
+    isDeleted: false,
+  };
+  const [filters, setFilters] = useState(initailQuery);
   const {
     data: services,
     error,
@@ -21,7 +25,6 @@ export const Services = () => {
     }));
   };
   console.log(filters);
-
   useEffect(() => {
     refetch();
   }, [filters, refetch]);

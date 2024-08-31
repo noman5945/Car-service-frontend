@@ -21,7 +21,11 @@ const servicesAPI = baseAPI.injectEndpoints({
           if (queries.price) {
             params.append("price", queries.price);
           }
+          if (queries.isDeleted) {
+            params.append("isDeleted", queries.isDeleted);
+          }
         }
+        console.log(params);
 
         return {
           url: "/api/services",
@@ -55,8 +59,22 @@ const servicesAPI = baseAPI.injectEndpoints({
         };
       },
     }),
+    createNewService: builder.mutation({
+      query: (newServiceInfo) => {
+        return { url: "/api/services", method: "POST", body: newServiceInfo };
+      },
+    }),
+    deleteService: builder.mutation({
+      query: (id) => {
+        return { url: `/api/services/${id}`, method: "DELETE" };
+      },
+    }),
   }),
 });
 
-export const { useGetInitalServicesQuery, useGetSingleServiceQuery } =
-  servicesAPI;
+export const {
+  useGetInitalServicesQuery,
+  useGetSingleServiceQuery,
+  useCreateNewServiceMutation,
+  useDeleteServiceMutation,
+} = servicesAPI;
