@@ -30,6 +30,11 @@ export const ServiceManagement = () => {
     navigator("/dashboard/admin/service-update");
   };
 
+  const handleGoToSlots = (id: string) => {
+    dispatch(setServiceID(id));
+    navigator("/dashboard/admin/slots");
+  };
+
   const handleDeleteServiceByID = async (id: string) => {
     const res = await deleteService(id).unwrap();
     if (res.statusCode === 200) {
@@ -86,7 +91,7 @@ export const ServiceManagement = () => {
                     <Table.Cell>
                       {service.isDeleted ? "Not Active" : "Active"}
                     </Table.Cell>
-                    <Table.Cell className=" grid grid-cols-2 w-fit gap-2">
+                    <Table.Cell className=" grid grid-cols-3 w-fit gap-2">
                       <Button
                         disabled={service.isDeleted}
                         onClick={() => {
@@ -103,6 +108,9 @@ export const ServiceManagement = () => {
                         className=" bg-red-500 hover:bg-red-600"
                       >
                         Delete
+                      </Button>
+                      <Button onClick={() => handleGoToSlots(service._id)}>
+                        Slots
                       </Button>
                     </Table.Cell>
                   </Table.Row>

@@ -19,6 +19,8 @@ import { ProtectedAdminRoutes } from "./ProtectedAdminRoutes";
 import { ProtectedUserRoutes } from "./ProtectedUserRoutes";
 import { NotFound } from "../pages/Error/NotFound";
 import { UpdateService } from "../pages/Admin/UpdateService";
+import { SlotDetails } from "../pages/Admin/SlotDetails";
+import { SlotsCreate } from "../pages/Admin/SlotsCreate";
 
 export const routes = createBrowserRouter([
   {
@@ -112,6 +114,22 @@ export const routes = createBrowserRouter([
         element: (
           <ProtectedAdminRoutes>
             <UpdateService />
+          </ProtectedAdminRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/admin/slot-details",
+        element: (
+          <ProtectedAdminRoutes>
+            <SlotDetails />
+          </ProtectedAdminRoutes>
+        ),
+      },
+      {
+        path: "/dashboard/admin/slot-create",
+        element: (
+          <ProtectedAdminRoutes>
+            <SlotsCreate />
           </ProtectedAdminRoutes>
         ),
       },
