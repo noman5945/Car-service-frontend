@@ -1,20 +1,26 @@
 import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../redux/hooks";
+import { setServiceID } from "../redux/features/services/serviceSlice";
 
 type ServiceCardProps = {
   name: string;
   desc: string;
   price: number;
   duration: number;
+  _id: string;
 };
 export const ServiceCard = ({
   name,
   desc,
   price,
   duration,
+  _id,
 }: ServiceCardProps) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const handleGoToDetails = () => {
+    dispatch(setServiceID(_id));
     navigate("/service-details");
   };
   return (

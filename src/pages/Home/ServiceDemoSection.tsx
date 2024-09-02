@@ -5,6 +5,8 @@ import { ItemCard } from "../../components/ItemCard";
 import { useGetInitalServicesQuery } from "../../redux/features/services/servicesApi";
 import { CustomLoader } from "../../components/CustomLoader";
 import { TService } from "../../types/service.type";
+import { useAppDispatch } from "../../redux/hooks";
+import { setServiceID } from "../../redux/features/services/serviceSlice";
 
 export const ServiceDemoSection = () => {
   const {
@@ -13,11 +15,15 @@ export const ServiceDemoSection = () => {
     isLoading,
   } = useGetInitalServicesQuery({ limit: 3, isDeleted: false, page: 1 });
 
+  const dispatch = useAppDispatch();
+
   const navigator = useNavigate();
   const handleGoToServices = () => {
     navigator("/services");
   };
-  const handleGoToServiceDetails = () => {
+
+  const handleGoToServiceDetails = (id: string) => {
+    dispatch(setServiceID(id));
     navigator("/service-details");
   };
   return (
@@ -46,7 +52,7 @@ export const ServiceDemoSection = () => {
                 key={index}
                 title={item.name}
                 desc={item.description}
-                onItemClickFunc={handleGoToServiceDetails}
+                onItemClickFunc={() => handleGoToServiceDetails(item._id)}
               />
             );
           })

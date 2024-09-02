@@ -1,13 +1,17 @@
 import { Button, Checkbox, Table } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 
-export const ServiceSlots = () => {
+type ServiceSlotsProps = {
+  items: Array<any>;
+};
+
+export const ServiceSlots = ({ items }: ServiceSlotsProps) => {
   const navigator = useNavigate();
   const handleGoToBookings = () => {
     navigator("/booking");
   };
   return (
-    <div className=" overflow-x-auto md:w-[700px] ">
+    <div className=" overflow-x-auto md:w-[700px] shadow-md ">
       <Table hoverable>
         <Table.Head className=" bg-sky-500 border">
           <Table.HeadCell className="p-4 ">
@@ -22,44 +26,33 @@ export const ServiceSlots = () => {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className=" divide-y">
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-            <Table.Cell className="p-4">
-              <Checkbox />
-            </Table.Cell>
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              {`2024-06-16`}
-            </Table.Cell>
-            <Table.Cell>08:30</Table.Cell>
-            <Table.Cell>09:30</Table.Cell>
-            <Table.Cell>available</Table.Cell>
-            <Table.Cell>
-              <Button
-                className="font-medium text-white h-[40px] w-[90px]"
-                onClick={handleGoToBookings}
+          {items.map((item: any) => {
+            return (
+              <Table.Row
+                key={item._id}
+                className="bg-white dark:border-gray-700 dark:bg-gray-800"
               >
-                Book
-              </Button>
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-            <Table.Cell className="p-4">
-              <Checkbox disabled />
-            </Table.Cell>
-            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-              {`2024-06-16`}
-            </Table.Cell>
-            <Table.Cell>08:30</Table.Cell>
-            <Table.Cell>09:30</Table.Cell>
-            <Table.Cell>booked</Table.Cell>
-            <Table.Cell>
-              <Button
-                className="font-medium text-white h-[40px] w-[90px]"
-                disabled
-              >
-                Book
-              </Button>
-            </Table.Cell>
-          </Table.Row>
+                <Table.Cell className="p-4">
+                  <Checkbox disabled={item.isBooked === "booked"} />
+                </Table.Cell>
+                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                  {`${item.date}`}
+                </Table.Cell>
+                <Table.Cell>{item.startTime}</Table.Cell>
+                <Table.Cell>{item.endTime}</Table.Cell>
+                <Table.Cell>{item.isBooked}</Table.Cell>
+                <Table.Cell>
+                  <Button
+                    className="font-medium text-white h-[40px] w-[90px]"
+                    onClick={handleGoToBookings}
+                    disabled={item.isBooked === "booked"}
+                  >
+                    Book
+                  </Button>
+                </Table.Cell>
+              </Table.Row>
+            );
+          })}
         </Table.Body>
       </Table>
     </div>

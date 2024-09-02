@@ -68,6 +68,7 @@ export const Services = () => {
                 desc={service.description}
                 price={service.price}
                 duration={service.duration}
+                _id={service._id}
               />
             );
           })
