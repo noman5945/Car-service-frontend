@@ -4,11 +4,14 @@ import { ServiceCard } from "../../components/ServiceCard";
 import { useGetInitalServicesQuery } from "../../redux/features/services/servicesApi";
 import { TService } from "../../types/service.type";
 import { ServiceFilterSection } from "./ServiceFilterSection";
+import { Pagination } from "flowbite-react";
 
 export const Services = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const initailQuery = {
-    limit: 10,
+    limit: 4,
     isDeleted: false,
+    page: currentPage,
   };
   const [filters, setFilters] = useState(initailQuery);
   const {
@@ -17,6 +20,14 @@ export const Services = () => {
     isLoading,
     refetch,
   } = useGetInitalServicesQuery(filters);
+
+  const onPageChange = (page: number) => {
+    setCurrentPage(page);
+    setFilters((prevState) => ({
+      ...prevState,
+      page,
+    }));
+  };
 
   const handleFilterClick = (filter: any) => {
     setFilters((prevQuery) => ({
@@ -61,6 +72,13 @@ export const Services = () => {
             );
           })
         )}
+        <div className=" flex flex-col items-center p-2">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={100}
+            onPageChange={onPageChange}
+          ></Pagination>
+        </div>
       </div>
     </section>
   );

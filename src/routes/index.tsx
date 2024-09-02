@@ -21,6 +21,7 @@ import { NotFound } from "../pages/Error/NotFound";
 import { UpdateService } from "../pages/Admin/UpdateService";
 import { SlotDetails } from "../pages/Admin/SlotDetails";
 import { SlotsCreate } from "../pages/Admin/SlotsCreate";
+import { Reviews } from "../pages/Reviews/Reviews";
 
 export const routes = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ export const routes = createBrowserRouter([
       {
         path: "/booking",
         element: <Bookings />,
+      },
+      {
+        path: "/reviews",
+        element: <Reviews />,
       },
       {
         path: "/not-permitted",

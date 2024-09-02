@@ -31,7 +31,24 @@ const slotsAPI = baseAPI.injectEndpoints({
       },
       invalidatesTags: ["slots"],
     }),
+    getSingleSlot: builder.query({
+      query: (queryParams) => {
+        const params = new URLSearchParams();
+        if (queryParams.slotID) {
+          params.append("slotID", queryParams.slotID);
+        }
+        return {
+          url: "/api/slots/single-slot",
+          method: "GET",
+          params: params,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllSlotsQuery, useCreateSlotsMutation } = slotsAPI;
+export const {
+  useGetAllSlotsQuery,
+  useCreateSlotsMutation,
+  useGetSingleSlotQuery,
+} = slotsAPI;

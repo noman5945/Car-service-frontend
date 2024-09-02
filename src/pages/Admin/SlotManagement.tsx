@@ -1,10 +1,11 @@
-import { Button, Table } from "flowbite-react";
+import { Button, Pagination, Table } from "flowbite-react";
 import { useGetAllSlotsQuery } from "../../redux/features/slots/slotsApi";
 import { CustomLoader } from "../../components/CustomLoader";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useEffect, useState } from "react";
 import { releaseServiceID } from "../../redux/features/services/serviceSlice";
+import { setSlotID } from "../../redux/features/slots/slotsSlice";
 
 export const SlotManagement = () => {
   const { serviceID } = useAppSelector((state) => state.service);
@@ -26,8 +27,18 @@ export const SlotManagement = () => {
   }, [serviceID]);
 
   const handleGoToSlotDetails = (id: string) => {
-    console.log(id);
+    dispatch(setSlotID(id));
     navigation("/dashboard/admin/slot-details");
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const onPageChange = (page: number) => {
+    setCurrentPage(page);
+    setFilter((prevState) => ({
+      ...prevState,
+      page,
+    }));
   };
 
   const handleGetAll = () => {
@@ -107,6 +118,13 @@ export const SlotManagement = () => {
             </>
           )}
         </div>
+      </div>
+      <div className=" flex flex-col items-center p-2">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={100}
+          onPageChange={onPageChange}
+        ></Pagination>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ export const ServiceDemoSection = () => {
     data: demoServices,
     error,
     isLoading,
-  } = useGetInitalServicesQuery({ limit: 3 });
+  } = useGetInitalServicesQuery({ limit: 3, isDeleted: false, page: 1 });
 
   const navigator = useNavigate();
   const handleGoToServices = () => {

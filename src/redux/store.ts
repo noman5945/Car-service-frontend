@@ -12,6 +12,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import authReducer from "./features/auth/authSlice";
 import serviceReducer from "./features/services/serviceSlice";
+import slotsReducer from "./features/slots/slotsSlice";
 import { baseAPI } from "./api/baseAPI";
 
 const persistConfig = {
@@ -23,17 +24,24 @@ const persistServiceIdConfig = {
   key: "serviceID",
   storage,
 };
+const persistSlotIdConfig = {
+  key: "slotID",
+  storage,
+};
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 const persistServiceIDReducer = persistReducer(
   persistServiceIdConfig,
   serviceReducer
 );
 
+const persistSlotIDReducer = persistReducer(persistSlotIdConfig, slotsReducer);
+
 export const store = configureStore({
   reducer: {
     [baseAPI.reducerPath]: baseAPI.reducer,
     auth: persistedAuthReducer,
     service: persistServiceIDReducer,
+    slot: persistSlotIDReducer,
   },
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares({

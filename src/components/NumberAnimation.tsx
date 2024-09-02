@@ -15,7 +15,7 @@ export const NumberAnimation = () => {
   return (
     <div className=" p-4">
       <div className=" flex flex-col items-center">
-        <h1 className=" font-bold text-4xl ">{number}</h1>
+        <h1 className=" font-bold text-5xl ">{number}</h1>
       </div>
     </div>
   );

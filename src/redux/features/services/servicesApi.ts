@@ -24,6 +24,9 @@ const servicesAPI = baseAPI.injectEndpoints({
           if (queries.isDeleted !== undefined) {
             params.append("isDeleted", queries.isDeleted);
           }
+          if (queries.page) {
+            params.append("page", queries.page);
+          }
         }
         console.log(params);
 
