@@ -3,7 +3,7 @@ import defaultpic from "../../assets/HeroSection-Carwash-cover1.jpg";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { ServiceSlots } from "./ServiceSlots";
 import { useGetSingleServiceQuery } from "../../redux/features/services/servicesApi";
-import { Button } from "flowbite-react";
+import { Button, Datepicker } from "flowbite-react";
 import { CustomLoader } from "../../components/CustomLoader";
 import { releaseServiceID } from "../../redux/features/services/serviceSlice";
 import { useGetAllSlotsQuery } from "../../redux/features/slots/slotsApi";
@@ -67,6 +67,12 @@ export const ServiceDetails = () => {
             </h1>
           </div>
           <div className=" bg-sky-400 w-[50px] h-[3px] my-[10px]"></div>
+          <div className=" flex flex-col items-center my-3">
+            <div className=" flex flex-row gap-2 w-full">
+              <Datepicker />
+              <Button>Search by Date</Button>
+            </div>
+          </div>
           {slotLoader ? (
             <div className=" flex flex-col items-center  justify-center h-[50px]">
               <CustomLoader />{" "}

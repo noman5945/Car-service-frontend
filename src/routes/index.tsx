@@ -46,7 +46,11 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/booking",
-        element: <Bookings />,
+        element: (
+          <ProtectedRoute>
+            <Bookings />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/reviews",

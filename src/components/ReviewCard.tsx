@@ -1,8 +1,12 @@
 import { Rating } from "flowbite-react";
 import defaultUser from "../assets/default-user.png";
-export const ReviewCard = () => {
+type ReviewCardProps = {
+  rating: number;
+  ratingLimit: number;
+};
+export const ReviewCard = ({ rating, ratingLimit }: ReviewCardProps) => {
   return (
-    <div className=" block rounded-md shadow-md p-4 w-[300px] lg:w-[400px]">
+    <div className=" block rounded-md shadow-md p-4 w-[300px] lg:w-[600px]">
       <div>
         <img src={defaultUser} className=" rounded-full h-[100px] w-[100px]" />
       </div>
@@ -10,17 +14,15 @@ export const ReviewCard = () => {
 
       <div className=" flex flex-row gap-2">
         <Rating>
-          <Rating.Star />
-          <Rating.Star />
-          <Rating.Star />
-          <Rating.Star />
-          <Rating.Star filled={false} />
+          {Array.from({ length: ratingLimit }).map((_, index) => {
+            return <Rating.Star filled={index < rating} />;
+          })}
         </Rating>
         <div className=" mx-1">
-          <p className=" font-bold text-lg">4</p>
+          <p className=" font-bold text-lg">{rating}</p>
         </div>
       </div>
-      <p className=" font-light text-base">feedback</p>
+      <p className=" font-light text-base  h-[50px]">feedback</p>
     </div>
   );
 };

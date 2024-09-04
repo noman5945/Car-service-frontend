@@ -29,3 +29,16 @@ export const whyUsPoints = [
       "Our auto repair shop is capable of servicing a variety of models. We only do the work that is needed to fix your problem.",
   },
 ];
+
+export const vehicleTypes = [
+  "car",
+  "truck",
+  "SUV",
+  "van",
+  "motorcycle",
+  "bus",
+  "electricVehicle",
+  "hybridVehicle",
+  "bicycle",
+  "tractor",
+];

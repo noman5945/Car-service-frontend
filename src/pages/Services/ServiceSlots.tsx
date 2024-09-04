@@ -1,5 +1,7 @@
 import { Button, Checkbox, Table } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../redux/hooks";
+import { setSlotID } from "../../redux/features/slots/slotsSlice";
 
 type ServiceSlotsProps = {
   items: Array<any>;
@@ -7,7 +9,9 @@ type ServiceSlotsProps = {
 
 export const ServiceSlots = ({ items }: ServiceSlotsProps) => {
   const navigator = useNavigate();
-  const handleGoToBookings = () => {
+  const dispatcher = useAppDispatch();
+  const handleGoToBookings = (slotID: string) => {
+    dispatcher(setSlotID(slotID));
     navigator("/booking");
   };
   return (
@@ -44,7 +48,7 @@ export const ServiceSlots = ({ items }: ServiceSlotsProps) => {
                 <Table.Cell>
                   <Button
                     className="font-medium text-white h-[40px] w-[90px]"
-                    onClick={handleGoToBookings}
+                    onClick={() => handleGoToBookings(item._id)}
                     disabled={item.isBooked === "booked"}
                   >
                     Book
