@@ -2,16 +2,19 @@ import { useState } from "react";
 import { CustomTextArea } from "../../components/CustomTextArea";
 import { Button, Rating, RatingStar } from "flowbite-react";
 import toast from "react-hot-toast";
+import { usePostReviewMutation } from "../../redux/features/review/reviewApi";
+import { CustomLoader } from "../../components/CustomLoader";
 
 type ReviewFormProps = {
   userID?: string;
 };
 export const ReviewForm = ({ userID }: ReviewFormProps) => {
   const [feedback, setFeedback] = useState("");
+  const [postReview, { isLoading, isError }] = usePostReviewMutation();
   const [fill, setFill] = useState(0);
   const [rate, setRate] = useState(0);
   let rateLimit = 5;
-  const handlePostReview = () => {
+  const handlePostReview = async () => {
     if (feedback === "") {
       toast.error("Review field is empty");
       return;
@@ -22,10 +25,20 @@ export const ReviewForm = ({ userID }: ReviewFormProps) => {
     }
     const reviewData = {
       userID,
-      rate,
+      rating: rate,
       feedback,
     };
     console.log(reviewData);
+    const res = await postReview(reviewData).unwrap();
+    console.log(res);
+    if (res.statusCode === 200) {
+      toast.success("Thank you for your kind review.");
+    } else {
+      toast.error("Error occured " + res.message);
+    }
+    if (isError) {
+      toast.error("Error occured while updating");
+    }
   };
   return (
     <div className=" border border-sky-400 w-[400px] md:w-[600px] flex flex-col items-center my-3 shadow-md rounded-md">
@@ -58,9 +71,15 @@ export const ReviewForm = ({ userID }: ReviewFormProps) => {
         <p>{rate}</p>
       </div>
       <div className=" my-3">
-        <Button onClick={handlePostReview} className="w-[300px]">
-          POST
-        </Button>
+        {isLoading ? (
+          <div className=" flex flex-col items-center">
+            <CustomLoader />
+          </div>
+        ) : (
+          <Button onClick={handlePostReview} className="w-[300px]">
+            POST
+          </Button>
+        )}
       </div>
     </div>
   );

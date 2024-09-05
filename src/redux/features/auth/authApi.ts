@@ -16,7 +16,34 @@ const authAPI = baseAPI.injectEndpoints({
         body: newUserInfo,
       }),
     }),
+    getUserInfo: builder.query({
+      query: (userID) => {
+        const params = new URLSearchParams();
+        if (userID) {
+          params.append("userID", userID);
+        }
+        return {
+          url: "/api/auth/user-id",
+          method: "GET",
+          params: params,
+        };
+      },
+    }),
+    updateUserInfo: builder.mutation({
+      query: (updateInfo) => {
+        return {
+          url: "/api/auth/update-info",
+          method: "PUT",
+          body: updateInfo,
+        };
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation, useUserCreateMutation } = authAPI;
+export const {
+  useLoginMutation,
+  useUserCreateMutation,
+  useGetUserInfoQuery,
+  useUpdateUserInfoMutation,
+} = authAPI;

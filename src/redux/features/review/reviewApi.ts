@@ -6,13 +6,22 @@ const reviewApi = baseAPI.injectEndpoints({
       query: (reviewQuery) => {
         const params = new URLSearchParams();
         return {
-          url: "",
+          url: "api/reviews/",
           method: "GET",
           params: params,
+        };
+      },
+    }),
+    postReview: builder.mutation({
+      query: (reviewBody) => {
+        return {
+          url: "api/reviews/post-review",
+          method: "POST",
+          body: reviewBody,
         };
       },
     }),
   }),
 });
 
-export const { useGetAllreviewsQuery } = reviewApi;
+export const { useGetAllreviewsQuery, usePostReviewMutation } = reviewApi;

@@ -6,6 +6,8 @@ type TextAreaProps = {
   onChangeFunc: React.Dispatch<React.SetStateAction<string>>;
   rows?: number;
   cols?: number;
+  value?: string;
+  disable?: boolean;
 };
 export const CustomTextArea = ({
   title,
@@ -14,6 +16,8 @@ export const CustomTextArea = ({
   onChangeFunc,
   rows,
   cols,
+  value,
+  disable,
 }: TextAreaProps) => {
   return (
     <div className="max-w-xl">
@@ -27,6 +31,8 @@ export const CustomTextArea = ({
         rows={rows ? rows : 4}
         cols={cols ? cols : 100}
         onChange={(e) => onChangeFunc(e.target.value)}
+        value={value}
+        disabled={disable}
       />
     </div>
   );

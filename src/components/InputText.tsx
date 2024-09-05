@@ -6,6 +6,7 @@ type CustomInputProps = {
   onChangeFunc: React.Dispatch<React.SetStateAction<string>>;
   styles?: string;
   value?: string;
+  disable?: boolean;
 };
 
 export const InputText = ({
@@ -14,6 +15,7 @@ export const InputText = ({
   onChangeFunc,
   styles,
   value,
+  disable,
 }: CustomInputProps) => {
   return (
     <div className={styles ? styles : "w-full"}>
@@ -23,6 +25,7 @@ export const InputText = ({
         onChange={(e) => onChangeFunc(e.target.value)}
         type={textType ? textType : "text"}
         value={value}
+        disabled={disable ? disable : false}
       ></FloatingLabel>
     </div>
   );
