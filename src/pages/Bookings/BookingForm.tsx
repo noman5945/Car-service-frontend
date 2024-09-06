@@ -4,6 +4,8 @@ import { Button, Select } from "flowbite-react";
 import toast from "react-hot-toast";
 import { vehicleTypes } from "../../constants";
 import { loadStripe } from "@stripe/stripe-js";
+import { useAppDispatch } from "../../redux/hooks";
+import { setBookSlotData } from "../../redux/features/bookings/bookedSlotDataSlice";
 
 type BookingFormProps = {
   onCancelFunc?: React.MouseEventHandler;
@@ -30,6 +32,8 @@ export const BookingForm = ({
   const success_page = `${baseUrl}/payment-success`;
   const failed_page = `${baseUrl}/payment-fail`;
 
+  const dispatch = useAppDispatch();
+
   const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
@@ -44,8 +48,8 @@ export const BookingForm = ({
       return;
     }
     const bookingData = {
-      slotID,
-      serviceID,
+      slotId: slotID,
+      serviceId: serviceID,
       vehicleType: vehicletype,
       vehicleBrand,
       vehicleModel,
@@ -57,14 +61,15 @@ export const BookingForm = ({
       success_page,
       failed_page,
     };
-
+    dispatch(setBookSlotData(bookingData));
     try {
-      const response = await fetch(`${basAPI_URL}/api/bookings/stripe-pay`, {
+      const response = await fetch(`${basAPI_URL}api/bookings/stripe-pay`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(stripeData),
+        credentials: "include",
       });
       const { id } = await response.json();
       const stripe = await loadStripe(stripe_public_key);

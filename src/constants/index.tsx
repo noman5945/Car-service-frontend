@@ -31,6 +31,7 @@ export const whyUsPoints = [
 ];
 
 export const vehicleTypes = [
+  "Select vehicle type",
   "car",
   "truck",
   "SUV",

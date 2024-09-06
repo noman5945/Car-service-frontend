@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage";
 import authReducer from "./features/auth/authSlice";
 import serviceReducer from "./features/services/serviceSlice";
 import slotsReducer from "./features/slots/slotsSlice";
+import bookedSlotReducer from "./features/bookings/bookedSlotDataSlice";
 import { baseAPI } from "./api/baseAPI";
 
 const persistConfig = {
@@ -28,10 +29,18 @@ const persistSlotIdConfig = {
   key: "slotID",
   storage,
 };
+const persistBookedSlotDataConfig = {
+  key: "bookedSlotData",
+  storage,
+};
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 const persistServiceIDReducer = persistReducer(
   persistServiceIdConfig,
   serviceReducer
+);
+const persistBookedSlotDataReducer = persistReducer(
+  persistBookedSlotDataConfig,
+  bookedSlotReducer
 );
 
 const persistSlotIDReducer = persistReducer(persistSlotIdConfig, slotsReducer);
@@ -42,6 +51,7 @@ export const store = configureStore({
     auth: persistedAuthReducer,
     service: persistServiceIDReducer,
     slot: persistSlotIDReducer,
+    bookedSlot: persistBookedSlotDataReducer,
   },
   middleware: (getDefaultMiddlewares) =>
     getDefaultMiddlewares({

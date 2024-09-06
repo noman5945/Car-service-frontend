@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 type TBookSlot = {
   slotId: null | string;
 };
+
 const initialValue: TBookSlot = {
   slotId: null,
 };
