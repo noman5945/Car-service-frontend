@@ -4,10 +4,12 @@ import { useGetSingleSlotQuery } from "../../redux/features/slots/slotsApi";
 import { releaseSlotID } from "../../redux/features/slots/slotsSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { BookingForm } from "./BookingForm";
+import { useEffect, useState } from "react";
 
 export const Bookings = () => {
   const { slotID } = useAppSelector((state) => state.slot);
   const { serviceID } = useAppSelector((state) => state.service);
+  const [slotItem, setSlotItem] = useState({});
   const dispatcher = useAppDispatch();
   const navigator = useNavigate();
   const {
@@ -20,8 +22,16 @@ export const Bookings = () => {
     dispatcher(releaseSlotID());
     navigator("/service-details");
   };
+  useEffect(() => {
+    setSlotItem({
+      ServiceName: slot?.data?.service?.name,
+      date: slot?.data?.date,
+      startTime: slot?.data?.startTime, // Custom metadata for the start time
+      endTime: slot?.data?.endTime,
+      price: Number(slot?.data?.service?.price),
+    });
+  }, [slot]);
 
-  console.log(slot);
   return (
     <div className=" flex flex-col items-center">
       <div className=" text-center">
@@ -66,6 +76,7 @@ export const Bookings = () => {
             onCancelFunc={handleGoToSlots}
             slotID={slotID}
             serviceID={serviceID}
+            item={slotItem}
           />
         </div>
       </div>

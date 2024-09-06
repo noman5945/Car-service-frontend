@@ -22,6 +22,8 @@ import { UpdateService } from "../pages/Admin/UpdateService";
 import { SlotDetails } from "../pages/Admin/SlotDetails";
 import { SlotsCreate } from "../pages/Admin/SlotsCreate";
 import { Reviews } from "../pages/Reviews/Reviews";
+import { PaymentSuccess } from "../pages/Success/PaymentSuccess";
+import { PaymentFailed } from "../pages/Error/PaymentFailed";
 
 export const routes = createBrowserRouter([
   {
@@ -59,6 +61,14 @@ export const routes = createBrowserRouter([
       {
         path: "/not-permitted",
         element: <NotPermitted />,
+      },
+      {
+        path: "/payment-success",
+        element: <PaymentSuccess />,
+      },
+      {
+        path: "/payment-fail",
+        element: <PaymentFailed />,
       },
     ],
   },

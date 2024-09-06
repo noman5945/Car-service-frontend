@@ -3,16 +3,19 @@ import { InputText } from "../../components/InputText";
 import { Button, Select } from "flowbite-react";
 import toast from "react-hot-toast";
 import { vehicleTypes } from "../../constants";
+import { loadStripe } from "@stripe/stripe-js";
 
 type BookingFormProps = {
   onCancelFunc?: React.MouseEventHandler;
   slotID: string | null;
   serviceID: string | null;
+  item?: any | null;
 };
 export const BookingForm = ({
   onCancelFunc,
   slotID,
   serviceID,
+  item,
 }: BookingFormProps) => {
   const [customerName, setCustomerName] = useState("");
   const [vehicletype, setVehicleType] = useState("");
@@ -20,7 +23,14 @@ export const BookingForm = ({
   const [vehicleModel, setVehicleModel] = useState("");
   const [manufacture, setManufacture] = useState("");
   const [carRegi, setCarRegi] = useState("");
-  const handleBooking = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const stripe_public_key = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
+  const basAPI_URL = import.meta.env.VITE_LIVE_API;
+  const baseUrl = window.location.origin;
+  const success_page = `${baseUrl}/payment-success`;
+  const failed_page = `${baseUrl}/payment-fail`;
+
+  const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
       customerName === "" ||
@@ -42,6 +52,30 @@ export const BookingForm = ({
       manufacturingYear: Number(manufacture),
       registrationPlate: carRegi,
     };
+    const stripeData = {
+      item,
+      success_page,
+      failed_page,
+    };
+
+    try {
+      const response = await fetch(`${basAPI_URL}/api/bookings/stripe-pay`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(stripeData),
+      });
+      const { id } = await response.json();
+      const stripe = await loadStripe(stripe_public_key);
+      if (stripe) {
+        await stripe.redirectToCheckout({ sessionId: id });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error occured while payment");
+    }
+    console.log(stripeData);
     console.log(bookingData);
   };
   return (
