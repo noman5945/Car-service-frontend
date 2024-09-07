@@ -43,3 +43,6 @@ export const vehicleTypes = [
   "bicycle",
   "tractor",
 ];
+
+export const about_this_web_app =
+  "Welcome to Levis Car Services, your one-stop solution for car wash and servicing needs. Our web application is designed to provide a seamless, user-friendly experience for booking services, tracking your vehicle’s service history, and accessing exclusive offers. Whether you need a quick wash or a detailed service, our platform allows you to choose from a wide range of options, schedule appointments at your convenience, and pay securely online. Our goal is to make car care easy, efficient, and accessible for everyone.";
