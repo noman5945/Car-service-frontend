@@ -11,7 +11,15 @@ const bookingApi = baseAPI.injectEndpoints({
         };
       },
     }),
+    getUserBookings: builder.query({
+      query: () => {
+        return {
+          url: "/api/my-bookings",
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 
-export const { useBookSlotMutation } = bookingApi;
+export const { useBookSlotMutation, useGetUserBookingsQuery } = bookingApi;
