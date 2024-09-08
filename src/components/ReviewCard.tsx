@@ -3,14 +3,21 @@ import defaultUser from "../assets/default-user.png";
 type ReviewCardProps = {
   rating: number;
   ratingLimit: number;
+  userName: string;
+  feedback: string;
 };
-export const ReviewCard = ({ rating, ratingLimit }: ReviewCardProps) => {
+export const ReviewCard = ({
+  rating,
+  ratingLimit,
+  userName,
+  feedback,
+}: ReviewCardProps) => {
   return (
     <div className=" block rounded-md shadow-md p-4 w-[300px] lg:w-[600px]">
       <div>
         <img src={defaultUser} className=" rounded-full h-[100px] w-[100px]" />
       </div>
-      <h1 className=" font-bold text-lg">User</h1>
+      <h1 className=" font-bold text-lg">{userName}</h1>
 
       <div className=" flex flex-row gap-2">
         <Rating>
@@ -22,7 +29,7 @@ export const ReviewCard = ({ rating, ratingLimit }: ReviewCardProps) => {
           <p className=" font-bold text-lg">{rating}</p>
         </div>
       </div>
-      <p className=" font-light text-base  h-[50px]">feedback</p>
+      <p className=" font-light text-base  h-[50px]">{feedback}</p>
     </div>
   );
 };

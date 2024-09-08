@@ -5,6 +5,9 @@ const reviewApi = baseAPI.injectEndpoints({
     getAllreviews: builder.query({
       query: (reviewQuery) => {
         const params = new URLSearchParams();
+        for (let key in reviewQuery) {
+          params.append(key, reviewQuery[key]);
+        }
         return {
           url: "api/reviews/",
           method: "GET",
