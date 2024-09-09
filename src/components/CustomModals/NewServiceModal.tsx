@@ -16,6 +16,7 @@ export const NewServiceModal = ({
   const [serviceDesc, setServiceDesc] = useState("");
   const [servicePrice, setServicePrice] = useState("");
   const [serviceDuration, setServiceDuration] = useState("");
+  const [img, setImg] = useState("");
   const [createNewService, { isLoading, isError, isSuccess }] =
     useCreateNewServiceMutation();
   const handleCreateNewService = () => {
@@ -24,6 +25,7 @@ export const NewServiceModal = ({
       description: serviceDesc,
       price: Number(servicePrice),
       duration: Number(serviceDuration),
+      img,
     };
     createNewService(newService).unwrap();
     if (isSuccess) {
@@ -55,6 +57,11 @@ export const NewServiceModal = ({
             textType="text"
             inputLabel="Service Duration(Hours)"
             onChangeFunc={setServiceDuration}
+          />
+          <InputText
+            textType="text"
+            inputLabel="Service Image Link"
+            onChangeFunc={setImg}
           />
         </div>
       </Modal.Body>
