@@ -24,6 +24,7 @@ export const UpdateService = () => {
   const [serviceDesc, setServiceDesc] = useState("");
   const [servicePrice, setServicePrice] = useState("");
   const [serviceDuration, setServiceDuration] = useState("");
+  const [serviceImg, setServiceImg] = useState("");
 
   if (serviceID) {
     const { data, isLoading } = useGetSingleServiceQuery(serviceID);
@@ -37,6 +38,7 @@ export const UpdateService = () => {
       setServiceDesc(service?.description || "");
       setServiceDuration(service?.duration?.toString() || "");
       setServicePrice(service?.price?.toString() || "");
+      setServiceImg(service?.img?.toString() || "");
     }
   }, [result]);
 
@@ -50,6 +52,7 @@ export const UpdateService = () => {
       description: serviceDesc,
       price: Number(servicePrice),
       duration: Number(serviceDuration),
+      img: serviceImg,
     };
     if (serviceID) {
       const res = await updateService(updatedData).unwrap();
@@ -96,6 +99,12 @@ export const UpdateService = () => {
               inputLabel="Service Price"
               onChangeFunc={setServicePrice}
               value={servicePrice}
+            />
+            <InputText
+              textType="text"
+              inputLabel="Service image link"
+              onChangeFunc={setServiceImg}
+              value={serviceImg}
             />
             <div className=" flex flex-col gap-3">
               {updateLoader ? (

@@ -44,10 +44,10 @@ export const ServiceDetails = () => {
             </h1>
           </div>
           <div className=" bg-sky-400 w-[50px] h-[3px] my-[10px]"></div>
-          <div className=" flex flex-col md:flex-row items-start justify-between md:w-[600px] ">
+          <div className=" flex flex-col  items-start justify-between md:w-[600px] ">
             <img
-              src={defaultpic}
-              className=" md:w-[350px] md:h-[300px] rounded-md w-[250px] h-[200px]"
+              src={service?.data?.img ? service?.data?.img : defaultpic}
+              className=" md:w-[400px] md:h-[300px] rounded-md w-[250px] h-[200px]"
             />
             <div className=" block p-3">
               <h2 className=" text-sky-600 font-bebas font-bold text-xl">

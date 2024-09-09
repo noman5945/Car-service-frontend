@@ -53,6 +53,7 @@ export const ServiceDemoSection = () => {
                 title={item.name}
                 desc={item.description}
                 onItemClickFunc={() => handleGoToServiceDetails(item._id)}
+                img={item.img}
               />
             );
           })

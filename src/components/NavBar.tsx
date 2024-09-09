@@ -20,7 +20,10 @@ export const NavBar = () => {
     <Navbar fluid rounded className=" shadow-md ">
       <Navbar.Brand>
         {" "}
-        <h1 className=" text-lg font-bold"> Levis Car Services</h1>
+        <div className=" flex flex-row items-center  ">
+          <img src="/car-logo.jpg" className=" w-[80px] h-[80px]" />
+          <h1 className=" text-lg font-bold">Levis Car Services</h1>
+        </div>
       </Navbar.Brand>
       <div className=" flex md:order-2">
         {token ? (

@@ -5,13 +5,19 @@ type ItemCardProps = {
   title: string;
   desc: string;
   onItemClickFunc?: React.MouseEventHandler;
+  img?: string;
 };
-export const ItemCard = ({ title, desc, onItemClickFunc }: ItemCardProps) => {
+export const ItemCard = ({
+  title,
+  desc,
+  onItemClickFunc,
+  img,
+}: ItemCardProps) => {
   return (
     <div className=" flex flex-col shadow-md rounded-md">
       <img
-        src={defaultpic}
-        className=" w-[250px] h-[200px] lg:w-[350px] lg:h-[300px] rounded-md"
+        src={img ? img : defaultpic}
+        className=" w-[300px] h-[200px] lg:w-[400px] lg:h-[300px] rounded-md"
       />
       <div className=" block p-3">
         <h2 className=" text-lg font-bold">{title}</h2>

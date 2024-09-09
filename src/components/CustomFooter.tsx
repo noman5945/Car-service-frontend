@@ -12,8 +12,11 @@ export const CustomFooter = () => {
     <Footer container>
       <div className="w-full border-y-2 ">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
-          <div className=" font-bebas text-2xl font-bold">
-            Levis Car Services
+          <div className=" flex flex-row items-center">
+            <img src="/car-logo.jpg" className=" w-[100px] h-[100px]" />
+            <div className=" font-bebas text-2xl font-bold">
+              Levis Car Services
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-4 sm:grid-cols-3 sm:gap-6">
             <div>
