@@ -14,6 +14,8 @@
     "@stripe/stripe-js": "^4.4.0",
     "@types/node": "^22.5.4",
     "dotenv": "^16.4.5",
+    "firebase": "^10.13.1",
+    "firebase-tools": "^13.16.0",
     "flowbite-react": "^0.10.1",
     "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
