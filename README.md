@@ -24,7 +24,8 @@ An E-Commerce web application where user can select various types of car service
     \*Stripe Payment Method
   - Integrated Stripe payment gateway.
   - Test Stripe payment using a dummy VISA card
-  ```Card no: 4242424242424242
+  ```
+      Card no: 4242424242424242
       CVC: Any number
   ```
 
