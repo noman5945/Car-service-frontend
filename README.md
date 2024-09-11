@@ -21,6 +21,11 @@ An E-Commerce web application where user can select various types of car service
   - Can create slots for each services.
   - Manage users. Can make a user admin.
   - Just like users admin can browse services,slots and can book them.
+  - _Test Admin credentials_
+  ```
+    email : web@programming-hero.com
+    password : ph-password
+  ```
 - Stripe Payment Method
   - Integrated Stripe payment gateway.
   - Test Stripe payment using a dummy VISA card
@@ -28,3 +33,29 @@ An E-Commerce web application where user can select various types of car service
       Card no: 4242424242424242
       CVC: Any number
   ```
+
+# Tech Stack
+
+    - Main
+        - React
+        - Redux
+        - Tailwind CSS
+        - Stripe
+        - TypeScript
+    - Dependencies
+        - Redux toolkit
+        - bcrypt
+        - flowbite-react
+        - firebase (Hosting)
+        - jwt
+
+_Install Dependencies_
+
+```
+npm i
+
+```
+
+# Demo Video
+
+Demo video link: <a href="https://www.youtube.com/watch?v=8dkwOIFRnC0">Demo Video</a>
